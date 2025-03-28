@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35913.81 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookClub2.0", "BookClub2.0\BookClub2.0.csproj", "{166BD131-8934-4862-A42A-9B4FD75B1F60}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookClub2.0Tests", "BookClub2.0Tests\BookClub2.0Tests.csproj", "{B2398415-6BF5-4B1B-8F45-36C95D04F1ED}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{166BD131-8934-4862-A42A-9B4FD75B1F60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{166BD131-8934-4862-A42A-9B4FD75B1F60}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{166BD131-8934-4862-A42A-9B4FD75B1F60}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{166BD131-8934-4862-A42A-9B4FD75B1F60}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2398415-6BF5-4B1B-8F45-36C95D04F1ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2398415-6BF5-4B1B-8F45-36C95D04F1ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2398415-6BF5-4B1B-8F45-36C95D04F1ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2398415-6BF5-4B1B-8F45-36C95D04F1ED}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B403180B-B7EB-4D07-838E-79E5DFE3CB2D}
+	EndGlobalSection
+EndGlobal
