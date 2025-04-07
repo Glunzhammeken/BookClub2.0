@@ -44,10 +44,7 @@ namespace BookClub2._0.Repositories
         public User? GetUserById(int id)
         {
             var user = _context.Users.FirstOrDefault(u => u.Id == id);
-            if (user == null)
-            {
-                throw new ArgumentNullException("Id cannot be null.");
-            }
+           
             return user;
         }
         public IEnumerable<User> GetUsers()
