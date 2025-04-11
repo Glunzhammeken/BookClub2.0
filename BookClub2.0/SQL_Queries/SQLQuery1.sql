@@ -1,4 +1,5 @@
-﻿CREATE TABLE Users (
+﻿-- lader til at virke
+CREATE TABLE Users (
     Id INT PRIMARY KEY IDENTITY(1,1),
     UserName NVARCHAR(100) NOT NULL,
     Email NVARCHAR(100) NOT NULL,
@@ -15,14 +16,16 @@ CREATE TABLE Books (
     FilePath NVARCHAR(200) NOT NULL
 );
 
+
+
 CREATE TABLE BookClubs (
-    Id INT PRIMARY KEY IDENTITY(1,1),
-    BookId INT NOT NULL,
-    ClubName NVARCHAR(100) NOT NULL,
-    CreatorUserId INT NOT NULL,
-    FOREIGN KEY (BookId) REFERENCES Books(Id),
-    FOREIGN KEY (CreatorUserId) REFERENCES Users(Id)
+    Id INT PRIMARY KEY IDENTITY(1,1), -- Unik identifikator for bogklubben
+    Name NVARCHAR(100) NOT NULL, -- Navn på bogklubben
+    Description NVARCHAR(50) NOT NULL, -- Beskrivelse af bogklubben (maks. 50 tegn)
+    OwnerId INT NOT NULL, -- Fremmednøgle til brugeren, der ejer/opretter bogklubben
+    FOREIGN KEY (OwnerId) REFERENCES Users(Id) -- Relation til Users-tabellen
 );
+
 
 CREATE TABLE Messages (
     Id INT PRIMARY KEY IDENTITY(1,1),
