@@ -15,5 +15,6 @@ namespace BookClub2._0.Interfaces
         IEnumerable<User> GetUsers();
         User Remove(int id);
         User? UpdateUser(int id, User nyData);
+        User? GetUserByEmail(string email);
     }
 }
