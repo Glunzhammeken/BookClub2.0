@@ -108,13 +108,14 @@ namespace BookClub2._0.Models
             }
         }
 
+        public ICollection<BookClub> OwnedBookClubs { get; set; } 
+        public ICollection<BookClub> MemberOfBookClubs { get; set; } 
 
-        //public ICollection<BookClub> BookClubs { get; set; } // Add this property
-
-        /* kunne være usefull på et tidspukt
-        public ICollection<Reference> References { get; set; }
-        public ICollection<ChatRoom> ChatRooms { get; set; }
-        /*/
+        public User()
+        {
+            OwnedBookClubs = new List<BookClub>();
+            MemberOfBookClubs = new List<BookClub>();
+        }
         public override string ToString()
         {
             return $"Name of User: {_userName} Role of User: {_role}: E-Mail of User {_email}";

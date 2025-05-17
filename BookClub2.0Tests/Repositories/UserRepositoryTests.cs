@@ -10,9 +10,6 @@ using BookClub2._0.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using BookClub2._0.Models;
-
-
-
 namespace BookClub2._0.Repositories.Tests
 {
     [TestClass()]
@@ -20,7 +17,7 @@ namespace BookClub2._0.Repositories.Tests
     {
         private IRepository _userRepository;
         private BookClubDbContext _context;
-        
+
         [TestInitialize]
         public void Init()
         {
@@ -55,16 +52,89 @@ namespace BookClub2._0.Repositories.Tests
                 Role = "admin"
             };
 
-            _context.Users.Add(user);
-            _context.SaveChanges();
+            _userRepository.Add(user);
 
             Assert.AreEqual(1, _context.Users.Count());
             var retrievedUser = _context.Users.First();
             Assert.AreEqual("TestUser", retrievedUser.UserName);
             Assert.AreEqual("testuser@example.com", retrievedUser.Email);
             Assert.AreEqual("admin", retrievedUser.Role);
-
-            //Manglende test på Exceptions
         }
+        [TestMethod]
+        public void CanUpdateUserInDatabase()
+        {
+            var user = new User
+            {
+                UserName = "TestUser",
+                Email = "testuser@example.com",
+                PasswordHash = "Valid1Password!",
+                Role = "admin"
+            };
+
+            _userRepository.Add(user);
+
+            var updatedUser = new User
+            {
+                UserName = "UpdatedUser",
+                Email = "updated@example.com",
+                PasswordHash = "Updated1Password!",
+                Role = "participant"
+            };
+
+            _userRepository.UpdateUser(user.Id, updatedUser);
+
+            var retrievedUser = _context.Users.First();
+            Assert.AreEqual("UpdatedUser", retrievedUser.UserName);
+            Assert.AreEqual("updated@example.com", retrievedUser.Email);
+            Assert.AreEqual("participant", retrievedUser.Role);
+        }
+        [TestMethod]
+        public void CanDeleteUserInDatabase()
+        {
+            var user = new User
+            {
+                UserName = "TestUser",
+                Email = "testuser@example.com",
+                PasswordHash = "Valid1Password!",
+                Role = "admin"
+            };
+            _userRepository.Add(user);
+            Assert.AreEqual(1, _context.Users.Count());
+            _userRepository.Remove(user.Id);
+            Assert.AreEqual(0, _context.Users.Count());
+
+        }
+        [TestMethod]
+        public void CanGetUserByIdInDatabase()
+        {
+            var user = new User
+            {
+                UserName = "TestUser",
+                Email = "testuser@example.com",
+                PasswordHash = "Valid1Password!",
+                Role = "admin"
+            };
+            _userRepository.Add(user);
+            var retrievedUser = _userRepository.GetUserById(user.Id);
+            Assert.IsNotNull(retrievedUser);
+            Assert.AreEqual("TestUser", retrievedUser.UserName);
+
+        }
+        [TestMethod]
+        public void CanGetAllUsersInDatabase()
+        {
+            var user = new User
+            {
+                UserName = "TestUser",
+                Email = "testuser@example.com",
+                PasswordHash = "Valid1Password!",
+                Role = "admin"
+            };
+            _userRepository.Add(user);
+            IEnumerable<User> users = _userRepository.GetUsers();
+            Assert.IsNotNull(users);
+            Assert.AreEqual(1, users.Count());
+        }
+
     }
 }

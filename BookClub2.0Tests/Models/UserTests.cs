@@ -65,5 +65,22 @@ namespace BookClub2._0.Models.Tests
             Assert.ThrowsException<ArgumentNullException>(() => user.Role = null);
             Assert.ThrowsException<ArgumentException>(() => user.Role = "invalidrole");
         }
+        [TestMethod]
+        public void OwnedBookClubsTest()
+        {
+            User user = new User();
+            var bookClubs = new List<BookClub> { new BookClub { Id = 1, Name = "Test Club" } };
+            user.OwnedBookClubs = bookClubs;
+            Assert.AreEqual(bookClubs, user.OwnedBookClubs);
+        }
+
+        [TestMethod]
+        public void MemberOfBookClubsTest()
+        {
+            User user = new User();
+            var bookClubs = new List<BookClub> { new BookClub { Id = 1, Name = "Test Club" } };
+            user.MemberOfBookClubs = bookClubs;
+            Assert.AreEqual(bookClubs, user.MemberOfBookClubs);
+        }
     }
 }
