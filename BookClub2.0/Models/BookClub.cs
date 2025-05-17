@@ -1,5 +1,4 @@
 using BookClub2._0.Interfaces;
-using Microsoft.IdentityModel.Tokens;
 using System.Collections.Generic;
 
 namespace BookClub2._0.Models
@@ -9,9 +8,9 @@ namespace BookClub2._0.Models
         private int _id;
         private string _name;
         private string _description;
-        private int _ownerId;
-        private User _owner;
-        private ICollection<User> _members;
+        private int? _ownerId;
+        private User? _owner;
+        private ICollection<User>? _members;
 
         public int Id
         {
@@ -41,43 +40,32 @@ namespace BookClub2._0.Models
                 if (string.IsNullOrEmpty(value))
                     throw new ArgumentNullException("Description cannot be null or empty");
                 if (value.Length > 50)
-                    throw new ArgumentOutOfRangeException("Description cant be higer than 50 charecters");
+                    throw new ArgumentOutOfRangeException("Description can't be longer than 50 characters");
                 _description = value;
-
             }
         }
-        public int OwnerId
+        public int? OwnerId
         {
             get => _ownerId;
             set
             {
-                if (value < 0)
-                    throw new ArgumentOutOfRangeException("OwnerId cant be null");
-                _ownerId = value;
+                if (value == null)
+                    throw new ArgumentNullException("OwnerId cannot be null");
+                _ownerId = (int)value; // Explicit cast to handle nullable type
             }
         }
-        public User Owner
+        public User? Owner
         {
             get => _owner;
-            set
-            {
-                if (value == null)
-                    throw new ArgumentNullException("Owner cannot be null");
-                _owner = value;
-            }
+            set => _owner = value;
+            
         }
-        public ICollection<User> Members
+        public ICollection<User>? Members
         {
-            get => _members;
-            set
-            {
-                if (value == null)
-                    throw new ArgumentNullException("Members cannot be null");
-                
-                _members = value;
-
-            }
+            get => _members ??= new List<User>(); // Initialize as empty list if null
+            set => _members = value ?? new List<User>(); // Allow null but replace with empty list
         }
+
         public BookClub()
         {
             Members = new List<User>();
@@ -85,7 +73,7 @@ namespace BookClub2._0.Models
 
         public override string ToString()
         {
-            return base.ToString();
+            return $"BookClub: {Name}, Description: {Description}, Owner: {Owner.UserName}";
         }
     }
 }

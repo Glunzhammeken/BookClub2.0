@@ -58,10 +58,10 @@ namespace BookClub2._0.Repositories.Tests
             {
                 Name = "Test Book Club",
                 Description = "A club for testing purposes.",
-                OwnerId = 1,
-                Members = new List<User>()
+                
+               
             };
-            _bookClubRepository.Add(bookClub);
+            _bookClubRepository.Add(bookClub,user.Id);
             Assert.AreEqual(1, _context.BookClubs.Count());
             var retrievedBookClub = _context.BookClubs.First();
             Assert.AreEqual("Test Book Club", retrievedBookClub.Name);
@@ -83,10 +83,9 @@ namespace BookClub2._0.Repositories.Tests
             {
                 Name = "Test Book Club",
                 Description = "A club for testing purposes.",
-                OwnerId = 1,
-                Members = new List<User>()
+                
             };
-            _bookClubRepository.Add(bookClub);
+            _bookClubRepository.Add(bookClub, user.Id);
             Assert.AreEqual(1, _context.BookClubs.Count());
             _bookClubRepository.Remove(bookClub.Id);
             Assert.AreEqual(0, _context.BookClubs.Count());
@@ -108,17 +107,15 @@ namespace BookClub2._0.Repositories.Tests
             {
                 Name = "Test Book Club",
                 Description = "A club for testing purposes.",
-                OwnerId = 1,
-                Members = new List<User>()
+             
             };
-            _bookClubRepository.Add(bookClub);
+            _bookClubRepository.Add(bookClub, user.Id);
             
             var updatedBookClub = new BookClub
             {
                 Name = "Updated Book Club",
                 Description = "An updated description.",
-                OwnerId = 1,
-                Members = new List<User>()
+                
             };
             _bookClubRepository.Update(bookClub.Id, updatedBookClub);
             Assert.IsTrue(_context.BookClubs.Any(bc => bc.Name == "Updated Book Club"));
@@ -140,10 +137,9 @@ namespace BookClub2._0.Repositories.Tests
             {
                 Name = "Test Book Club",
                 Description = "A club for testing purposes.",
-                OwnerId = 1,
-                Members = new List<User>()
+                
             };
-            _bookClubRepository.Add(bookClub);
+            _bookClubRepository.Add(bookClub, user.Id);
             var retrievedBookClub = _bookClubRepository.GetById(bookClub.Id);
             Assert.IsNotNull(retrievedBookClub);
             Assert.AreEqual("Test Book Club", retrievedBookClub.Name);
@@ -164,19 +160,17 @@ namespace BookClub2._0.Repositories.Tests
             {
                 Name = "Book Club 1",
                 Description = "Description 1",
-                OwnerId = user.Id,
-                Members = new List<User>()
+                
             };
             var bookClub2 = new BookClub
             {
                 Name = "Book Club 2",
                 Description = "Description 2",
-                OwnerId = user.Id,
-                Members = new List<User>()
+              
             };
 
-            _bookClubRepository.Add(bookClub1);
-            _bookClubRepository.Add(bookClub2);
+            _bookClubRepository.Add(bookClub1, user.Id);
+            _bookClubRepository.Add(bookClub2, user.Id);
 
             var allBookClubs = _bookClubRepository.GetAll();
 
@@ -209,12 +203,11 @@ namespace BookClub2._0.Repositories.Tests
             {
                 Name = "Test Book Club",
                 Description = "A club for testing purposes.",
-                OwnerId = user.Id,
-                
-            };
-            _bookClubRepository.Add(bookClub);
 
-            _bookClubRepository.AddMember(bookClub.Id, member);
+            };
+            _bookClubRepository.Add(bookClub, user.Id);
+
+            _bookClubRepository.AddMember(bookClub.Id, member.Id);
 
             var retrievedBookClub = _bookClubRepository.GetById(bookClub.Id);
             Assert.IsTrue(retrievedBookClub.Members.Any(m => m.Id == member.Id));
@@ -244,12 +237,12 @@ namespace BookClub2._0.Repositories.Tests
             {
                 Name = "Test Book Club",
                 Description = "A club for testing purposes.",
-                OwnerId = user.Id,
+                
                
             };
 
-            _bookClubRepository.Add(bookClub);
-            _bookClubRepository.AddMember(bookClub.Id, member);
+            _bookClubRepository.Add(bookClub, user.Id);
+            _bookClubRepository.AddMember(bookClub.Id, member.Id);
 
             var retrievedBookClub = _bookClubRepository.GetById(bookClub.Id);
             Assert.IsTrue(retrievedBookClub.Members.Any(m => m.Id == member.Id));

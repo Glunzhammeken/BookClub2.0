@@ -55,14 +55,6 @@ namespace BookClub2._0.Models.Tests
             Assert.ThrowsException<ArgumentNullException>(() => bookClub.Owner = null);
         }
 
-        [TestMethod]
-        public void MembersTest()
-        {
-            BookClub bookClub = new BookClub();
-            var members = new List<User> { new User { Id = 1, UserName = "Member1" } };
-            bookClub.Members = members;
-            Assert.AreEqual(members, bookClub.Members);
-            Assert.ThrowsException<ArgumentNullException>(() => bookClub.Members = null);
-        }
+      
     }
 }

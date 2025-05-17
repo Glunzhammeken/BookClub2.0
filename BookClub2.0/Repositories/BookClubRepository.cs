@@ -16,16 +16,27 @@ namespace BookClub2._0.Repositories
             _context = context;
         }
 
-        public BookClub Add(BookClub bookClub)
+        public BookClub Add(BookClub bookClub, int ownerId)
         {
             if (bookClub == null)
                 throw new ArgumentNullException(nameof(bookClub), "BookClub cannot be null.");
 
+            // Find owner baseret på ownerId
+            var owner = _context.Users.FirstOrDefault(u => u.Id == ownerId);
+            if (owner == null)
+                throw new ArgumentException($"User with ID {ownerId} does not exist.");
+
+            // Tildel owner til bookClub
+            bookClub.Owner = owner;
+            bookClub.OwnerId = ownerId;
+
+            // Tilføj og gem bookClub
+            owner.OwnedBookClubs.Add(bookClub);
+            owner.MemberOfBookClubs.Add(bookClub);
             _context.BookClubs.Add(bookClub);
             _context.SaveChanges();
             return bookClub;
         }
-
         public BookClub? GetById(int id)
         {
             return _context.BookClubs
@@ -50,8 +61,8 @@ namespace BookClub2._0.Repositories
 
             existingBookClub.Name = updatedBookClub.Name;
             existingBookClub.Description = updatedBookClub.Description;
-            existingBookClub.OwnerId = updatedBookClub.OwnerId;
-            existingBookClub.Members = updatedBookClub.Members;
+            
+            
 
             _context.SaveChanges();
             return existingBookClub;
@@ -68,16 +79,16 @@ namespace BookClub2._0.Repositories
             return bookClub;
         }
 
-        public void AddMember(int bookClubId, User member)
+        public void AddMember(int bookClubId, int memberid)
         {
             var bookClub = GetById(bookClubId);
             if (bookClub == null)
                 throw new ArgumentNullException(nameof(bookClub), "BookClub not found.");
 
-            if (bookClub.Members.Any(m => m.Id == member.Id))
+            if (bookClub.Members.Any(m => m.Id == memberid))
                 throw new InvalidOperationException("User is already a member of the BookClub.");
-
-            bookClub.Members.Add(member);
+            var membertoadd = _context.Users.FirstOrDefault(u => u.Id == memberid);
+            bookClub.Members.Add(membertoadd);
             _context.SaveChanges();
         }
 
