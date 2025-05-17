@@ -10,7 +10,7 @@ using System.Numerics;
 
 namespace BookClub2._0.Repositories
 {
-    public class UserRepository : IRepository
+    public class UserRepository : IUserRepository
     {
         private readonly BookClubDbContext _context;
 

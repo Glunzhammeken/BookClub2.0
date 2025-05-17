@@ -16,7 +16,7 @@ namespace BookClub2._0.Repositories.Tests
     public class BookClubRepositoryTests
     {
         private IBookClubRepository _bookClubRepository;
-        private IRepository _userRepository;
+        private IUserRepository _userRepository;
         private BookClubDbContext _context;
 
         [TestInitialize]

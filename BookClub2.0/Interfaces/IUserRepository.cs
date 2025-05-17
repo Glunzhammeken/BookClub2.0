@@ -8,7 +8,7 @@ using BookClub2._0.Models;
 
 namespace BookClub2._0.Interfaces
 {
-    public interface IRepository
+    public interface IUserRepository
     {
         User Add(User user);
         User? GetUserById(int id);
